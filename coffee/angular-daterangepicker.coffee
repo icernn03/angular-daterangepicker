@@ -116,6 +116,9 @@ picker.directive 'dateRangePicker', ($compile, $timeout, $parse, dateRangePicker
       el.daterangepicker angular.extend(opts, {autoUpdateInput: false}), (start, end) ->
         $scope.$apply () ->
           $scope.model = if opts.singleDatePicker then start else {startDate: start, endDate: end}
+          modelCtrl.$valid = false
+          modelCtrl.$modelValue = $scope.model
+         modelCtrl.$validate()
 
       # Needs to be after daterangerpicker has been created, otherwise
       # watchers that reinit will be attached to old daterangepicker instance.
